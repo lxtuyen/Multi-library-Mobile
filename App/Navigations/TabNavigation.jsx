@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -15,6 +15,7 @@ export default function TabNavigations() {
       screenOptions={{
         headerShown: false,
       }}
+      initialRouteName="Home"
     >
       <Tab.Screen
         name="home"
@@ -31,7 +32,7 @@ export default function TabNavigations() {
         }}
       />
       <Tab.Screen
-        name="search"
+        name="Search"
         component={SearchScreen}
         options={{
           tabBarLabel: ({ color }) => (
@@ -45,7 +46,7 @@ export default function TabNavigations() {
         }}
       />
       <Tab.Screen
-        name="profile"
+        name="Profile"
         component={ProfileScreen}
         options={{
           tabBarLabel: ({ color }) => (
