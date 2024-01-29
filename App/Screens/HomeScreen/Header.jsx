@@ -11,15 +11,16 @@ const Header = () => {
       <View style={styles.profileContainer}>
         <Image source={images.login} style={styles.userImages} />
         <View>
-          <Text style={{ color: white }}>Welcome, </Text>
-          <Text style={{ color: white, fontSize: 20 }}>Lê Xuân Tuyển</Text>
+          <Text style={{ color: '#fff' }}>Welcome, </Text>
+          <Text style={{ color: '#fff', fontSize: 20 }}>Lê Xuân Tuyển</Text>
         </View>
       </View>
       <FontAwesome name="bookmark-o" size={27} color="white" />
       </View>
       {/*Search bar section */}
-      <View>
+      <View style={styles.searchBarContainer}>
         <TextInput placeholder="Search" style={styles.TextInput} />
+        <FontAwesome name="search" size={24} color="#877dfa" style={styles.searchBtn} />
       </View>
     </View>
   );
@@ -52,8 +53,23 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 99,
   },
+  searchBarContainer:{
+    marginTop: 15,
+    display: 'flex',
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 10,
+  },
   TextInput:{
     padding: 6,
-    
+    paddingHorizontal: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    width: '85%',
+  },
+  searchBtn:{
+    backgroundColor: '#fff',
+    padding: 10,
+    borderRadius: 8
   },
 });
