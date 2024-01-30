@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+
 import images from "../../assets/images";
-import icons from "../../assets/icons";
+import InputBox  from "../../Components/Form/InputBox";
+import SubmitButton from "../../Components/Form/SubmitButton";
 
 const SignInScreen = () => {
   const navigation = useNavigation();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    try {
+        const res = await fetch(`${BASE_URL}/auth/register`, {
+            method: 'post',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(credentials),
+        });
+        const result = await res.json();
+        if (!res.ok) {
+        toast.error(result.message)
+        } 
+        setLoading(false)
+        toast.success('Đăng ký thành công')
+        dispatch({ type: 'REGISTER_SUCCESS' });
+        navigate('/login');
+    } catch (err) {
+        toast.error('Đăng ký thất bại')
+    }
+};
+
   return (
     <View style={styles.wrap}>
       <SafeAreaView style={styles.row}>
@@ -25,38 +54,32 @@ const SignInScreen = () => {
       </SafeAreaView>
       <View style={styles.wrapForm}>
         <View style={styles.form}>
-          <Text style={styles.label}>Email Address</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="email"
-            value="john@gmail.com"
-          />
-          <Text style={styles.label}>Password</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry
-            placeholder="password"
-            value="test12345"
-          />
+        <InputBox
+          inputTitle={"Email"}
+          keyboardType="email-address"
+          autoComplete="email"
+          placeholder='VD: email@domain.com'
+          value={email}
+          setValue={setEmail}
+        />
+        <InputBox
+          inputTitle={"Password"}
+          secureTextEntry={true}
+          autoComplete="password"
+          placeholder='Nhập mật khẩu'
+          value={password}
+          setValue={setPassword}
+        />
           <TouchableOpacity style={styles.forgotPassword}>
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Login</Text>
-          </TouchableOpacity>
+          <SubmitButton
+        btnTitle="Login"
+        loading={loading}
+        handleSubmit={handleSubmit}
+      />
         </View>
         <Text style={styles.orText}>Or</Text>
-        <View style={styles.socialButtonsContainer}>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={icons.google} style={styles.socialIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={icons.apple} style={styles.socialIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={icons.facebook} style={styles.socialIcon} />
-          </TouchableOpacity>
-        </View>
         <View style={styles.signupContainer}>
           <Text style={styles.signupText}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
@@ -139,7 +162,7 @@ const styles = StyleSheet.create({
     color: "rgb(55 65 81)",
   },
   orText: {
-    fontSize: 1.25,
+    fontSize: 20,
     lineHeight: 28,
     fontWeight: "bold",
     color: "rgb(55 65 81)",
@@ -147,28 +170,14 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
   },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginLeft: 40,
-  },
-  socialButton: {
-    padding: 8,
-    backgroundColor: "#rgb(243 244 246);",
-    borderRadius: 1,
-  },
-  socialIcon: {
-    width: 40,
-    height: 40,
-  },
   signupContainer: {
     flexDirection: "row",
     justifyContent: "center ",
-    marginTop: 28
+    marginLeft: 35,
   },
   signupText: {
     color: "rgb(107 114 128)",
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   signupButtonText: {
     color: "rgb(234 179 8)",

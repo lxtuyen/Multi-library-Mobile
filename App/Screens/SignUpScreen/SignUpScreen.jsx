@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ArrowLeftIcon } from "react-native-heroicons/solid";
 import { useNavigation } from "@react-navigation/native";
+import axios from 'axios'
+
 import images from "../../assets/images";
-import icons from "../../assets/icons";
+import InputBox  from "../../Components/Form/InputBox";
+import SubmitButton from "../../Components/Form/SubmitButton";
 
 const SignUpScreen = () => {
   const navigation = useNavigation();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () =>{
+
+  }
+
   return (
     <View style={styles.wrap}>
       <SafeAreaView style={styles.row}>
@@ -27,50 +40,35 @@ const SignUpScreen = () => {
       <View style={styles.wrapForm}
       >
         <View style={styles.form}>
-            <Text style={styles.label}>Full Name</Text>
-            <TextInput
-                style={styles.input}
-                value="john snow"
-                placeholder='Enter Name'
-            />
-            <Text style={styles.label}>Email Address</Text>
-            <TextInput
-                style={styles.input}
-                value="john@gmail.com"
-                placeholder='Enter Email'
-            />
-            <Text style={styles.label}>Password</Text>
-            <TextInput
-                style={styles.input}
-                secureTextEntry
-                value="test12345"
-                placeholder='Enter Password'
-            />
-            <TouchableOpacity
-               style={styles.signUpButton}
-            >
-                <Text style={styles.signUpButtonText}>
-                    Sign Up
-                </Text>
-            </TouchableOpacity>
+        <InputBox inputTitle={"Name"} placeholder='VD: tuyen123' value={name} setValue={setName} />
+        <InputBox
+          inputTitle={"Email"}
+          keyboardType="email-address"
+          autoComplete="email"
+          placeholder='VD: email@domain.com'
+          value={email}
+          setValue={setEmail}
+        />
+        <InputBox
+          inputTitle={"Password"}
+          secureTextEntry={true}
+          autoComplete="password"
+          placeholder='Nhập mật khẩu'
+          value={password}
+          setValue={setPassword}
+        />
+            <SubmitButton
+        btnTitle="Register"
+        loading={loading}
+        handleSubmit={handleSubmit}
+      />
         </View>
         <Text style={styles.orText}>
             Or
         </Text>
-        <View style={styles.socialButtonsContainer}>
-        <TouchableOpacity style={styles.socialButton}>
-            <Image source={icons.google} style={styles.socialIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={icons.apple} style={styles.socialIcon} />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.socialButton}>
-            <Image source={icons.facebook} style={styles.socialIcon} />
-          </TouchableOpacity>
-        </View>
         <View style={styles.signinContainer}>
             <Text style={styles.signinText}>Already have an account?</Text>
-            <TouchableOpacity onPress={()=> navigation.navigate('Login')}>
+            <TouchableOpacity onPress={()=> navigation.navigate('SignIn')}>
                 <Text style={styles.signinButtonText}> Login</Text>
             </TouchableOpacity>
         </View>
@@ -99,6 +97,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 16,
     borderBottomLeftRadius: 16,
     marginLeft: 16,
+    width: 35
   },
   containerImg: {
     flexDirection: "row",
@@ -117,17 +116,6 @@ const styles = StyleSheet.create({
     padding: 16,
     marginTop: 8,
   },
-  label: {
-    color: "rgb(55 65 81)",
-    marginLeft: 16,
-  },
-  input: {
-    padding: 16,
-    backgroundColor: "rgb(243 244 246)",
-    color: "rgb(55 65 81)",
-    borderRadius: 1,
-    marginBottom: 12,
-  },
   forgotPassword: {
     alignItems: "flex-end",
     display: "flex",
@@ -136,21 +124,8 @@ const styles = StyleSheet.create({
     color: "rgb(55 65 81)",
     marginBottom: 20,
   },
-  signUpButton: {
-    backgroundColor: "rgb(250 204 21)",
-    borderRadius: 5,
-    paddingBottom: 12,
-    paddingTop: 12,
-  },
-  signUpButtonText: {
-    fontSize: 18,
-    lineHeight: 28,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "rgb(55 65 81)",
-  },
   orText: {
-    fontSize: 1.25,
+    fontSize: 20,
     lineHeight: 28,
     fontWeight: "bold",
     color: "rgb(55 65 81)",
@@ -158,28 +133,16 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingTop: 20,
   },
-  socialButtonsContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginLeft: 40,
-  },
-  socialButton: {
-    padding: 8,
-    backgroundColor: "#rgb(243 244 246);", 
-    borderRadius: 1,
-  },
-  socialIcon: {
-    width: 40,
-    height: 40,
-  },
   signinContainer: {
     flexDirection: "row",
     justifyContent: "center ",
-    marginTop: 28
+    marginTop: 28,
+    marginLeft: 35,
   },
   signinText: {
     color: "rgb(107 114 128)",
     fontWeight: 'bold'
+
   },
   signinButtonText: {
     color: "rgb(234 179 8)",
