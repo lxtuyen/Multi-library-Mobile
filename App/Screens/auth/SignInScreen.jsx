@@ -6,36 +6,12 @@ import { useNavigation } from "@react-navigation/native";
 
 import images from "../../assets/images";
 import InputBox  from "../../Components/Form/InputBox";
-import SubmitButton from "../../Components/Form/SubmitButton";
+import ButtonComponent from '../../Components/ButtonComponent';
 
 const SignInScreen = () => {
+  const [email,setEmail] = useState('')
+  const [password,setPassword] = useState('')
   const navigation = useNavigation();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true)
-    try {
-        const res = await fetch(`${BASE_URL}/auth/register`, {
-            method: 'post',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(credentials),
-        });
-        const result = await res.json();
-        if (!res.ok) {
-        toast.error(result.message)
-        } 
-        setLoading(false)
-        toast.success('Đăng ký thành công')
-        dispatch({ type: 'REGISTER_SUCCESS' });
-        navigate('/login');
-    } catch (err) {
-        toast.error('Đăng ký thất bại')
-    }
-};
 
   return (
     <View style={styles.wrap}>
@@ -72,12 +48,10 @@ const SignInScreen = () => {
         />
           <TouchableOpacity style={styles.forgotPassword}>
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
-          </TouchableOpacity>
-          <SubmitButton
-        btnTitle="Login"
-        loading={loading}
-        handleSubmit={handleSubmit}
-      />
+          </TouchableOpacity>      
+          <ButtonComponent
+            text1 = {"Login"}
+          />
         </View>
         <Text style={styles.orText}>Or</Text>
         <View style={styles.signupContainer}>
@@ -184,3 +158,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
 });
+

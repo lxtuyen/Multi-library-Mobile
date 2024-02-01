@@ -1,6 +1,6 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
-import {ForgotPassword, SignInScreen, SignUpScreen} from '../Screens';
+import {ForgotPassword, SignInScreen, SignUpScreen, WelcomeScreen} from '../Screens';
 import OnbroadingScreen from '../screens/auth/OnbroadingScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Verification from '../screens/auth/Verification';
@@ -26,7 +26,7 @@ const AuthNavigator = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="OnbroadingScreen" component={OnbroadingScreen} />
+      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
       <Stack.Screen name="LoginScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
       <Stack.Screen name="Verification" component={Verification} />

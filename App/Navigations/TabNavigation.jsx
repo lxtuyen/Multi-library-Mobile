@@ -18,12 +18,12 @@ export default function TabNavigations() {
       initialRouteName="Home"
     >
       <Tab.Screen
-        name="home"
+        name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: ({ color }) => (
             <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>
-              Profile
+              Home
             </Text>
           ),
           tabBarIcon: ({ color, size }) => (
