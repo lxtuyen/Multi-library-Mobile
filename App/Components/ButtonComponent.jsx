@@ -1,13 +1,12 @@
 import { View, TouchableOpacity } from "react-native";
 import React from "react";
 import TextComponent from "./TextComponent";
-import { globalStyles } from "../styles/GlobalStyles";
+import {globalStyles}  from "../styles/GlobalStyles";
 import { appColors } from "../constants/appColors";
-import { useFonts } from "expo-font";
 
 const ButtonComponent = ({
   icon,
-  text1,
+  text,
   textColor,
   textStyles,
   textFont,
@@ -18,12 +17,6 @@ const ButtonComponent = ({
   type,
   disable,
 }) => {
-  const fontFamilies = useFonts({
-    medium: require("../../assets/fonts/AirbnbCereal_W_Md.otf"),
-  });
-  if (!fontFamilies) {
-    return null;
-  }
   return type === "primary" ? (
     <View style={{ alignItems: "center" }}>
       <TouchableOpacity
@@ -46,7 +39,7 @@ const ButtonComponent = ({
       >
         {icon && iconFlex === "left" && icon}
         <TextComponent
-          text={text1}
+          text={text}
           color={textColor ?? appColors.white}
           styles={[
             textStyles,
@@ -66,7 +59,7 @@ const ButtonComponent = ({
     <TouchableOpacity onPress={onPress}>
       <TextComponent
         flex={0}
-        text1={text1}
+        text={text}
         color={type === 'link' ? appColors.primary : appColors.text}
       />
     </TouchableOpacity>

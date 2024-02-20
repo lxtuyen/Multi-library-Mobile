@@ -3,20 +3,12 @@ import React from "react";
 import { useFonts } from "expo-font";
 
 import { appColors } from "../constants/appColors";
+import fontFamilies from '../constants/fontFamilies'
 import { globalStyles } from "../styles/GlobalStyles";
 
-const TextComponent = ({ text, size, flex, font, color, styles, title }) => {
+const TextComponent = ({ text, size, flex, font, color, styles, title }) => { 
   const fontSizeDefault = Platform.OS === 'ios' ? 16 : 14;;
 
-  const fontFamilies = useFonts({
-    semiBold: require("../../assets/fonts/AirbnbCereal_W_Bd.otf"),
-    regular: require("../../assets/fonts/AirbnbCereal_W_Lt.otf"),
-    medium: require("../../assets/fonts/AirbnbCereal_W_Md.otf"),
-    bold: require("../../assets/fonts/AirbnbCereal_W_XBd.otf"),
-  });
-  if(!fontFamilies){
-    return null
-  }
   return (
     <Text
       style={[

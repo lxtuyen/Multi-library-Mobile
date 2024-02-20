@@ -1,17 +1,10 @@
 import {StyleSheet} from 'react-native';
-import { useFonts } from "expo-font";
 
 import {appColors} from '../constants/appColors';
+import fontFamilies from '../constants/fontFamilies'
 
+const globalStyles = StyleSheet.create({
 
-export const GlobalStyles = () => {
-  const fontFamilies = useFonts({
-    semiBold: require("../../assets/fonts/AirbnbCereal_W_Bd.otf"),
-    regular: require("../../assets/fonts/AirbnbCereal_W_Lt.otf"),
-    medium: require("../../assets/fonts/AirbnbCereal_W_Md.otf"),
-    bold: require("../../assets/fonts/AirbnbCereal_W_XBd.otf"),
-  });
-  return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: appColors.white,
@@ -63,4 +56,5 @@ export const GlobalStyles = () => {
       borderRadius: 100,
     },
   });
-};
+
+export default globalStyles
